@@ -1,6 +1,6 @@
 # Chief of staff agent - job specification
 
-Version 0.1 (draft for review) - 9 November 2026
+Version 0.2 (draft for review) - 9 November 2026
 Owner: Ben Bishop, CEO, Bright Software Group
 Status: research complete, design decisions open (section 12)
 
@@ -13,7 +13,7 @@ This is the job spec for an AI chief of staff that works with the CEO every day,
 Three inputs.
 
 1. Public material on the chief of staff role in SaaS and in PE-backed portfolio companies (job specs, search-firm commentary, practitioner articles). The evidence here is thin. Most of it comes from recruiters and job adverts, who have a stake in how the role is described, so I have treated it as a pattern to check against your reality rather than a standard.
-2. Hg's public material on AI transformation, plus the AI Imperative assessment frameworks already loaded in your Claude environment (AI product strategy, and AI operations transformation). The name "AI Imperative" did not surface in public search, so the scorecard dimensions in section 5E come from your own skills, not from a published source.
+2. Hg's public material on AI transformation, plus the AI Imperative assessment frameworks already loaded in your Claude environment. The name "AI Imperative" did not surface in public search. As of v0.2 the spec focuses on customer AI adoption through the products (section 5E), so the internal AI operations scorecard from v0.1 has been taken out.
 3. The Claude Managed Agents reference, to make sure the spec asks for things the platform can do.
 
 What the research agrees on:
@@ -107,28 +107,24 @@ Reads: Confluence, Linear or Jira (if connected), Granola, HubSpot.
 Produces: weekly priorities and initiatives status, ExCo agenda proposal, monthly review pack skeleton.
 Judged by: ExCo items with a named owner and a decision recorded, initiatives with a stale update.
 
-### 5E. AI and adoption programme tracking
+### 5E. Customer AI adoption - line of sight, not ownership
 
-This is the heaviest differentiator for this CEO, so it gets its own domain.
-
-The agent holds the programme scorecard and watches it weekly. Dimensions (drawn from the AI Imperative frameworks in the CEO's skills, to be confirmed in section 12):
-
-- **R&D efficiency** - AI tooling use in engineering, cycle time, output per engineer.
-- **Support automation** - ticket volumes, deflection, handle time, cost per ticket (Zendesk).
-- **AI tooling penetration** - active users of the approved AI tools across the company, by function and by team.
-- **Product AI adoption** - feature adoption and depth of use for AI features (Pendo), customer count and revenue influenced (HubSpot, ChurnZero).
-- **Commercial impact** - share of new bookings that include or depend on AI (HubSpot).
-- **EBITDA path** - the cost and revenue lines the programme is meant to move.
+Driving AI adoption in customers is a product, customer success and commercial job. A chief of staff does not own it and should not. What the CEO needs from the role is line of sight and follow-through, so the agent's remit here is deliberately narrow.
 
 Does:
-- Produce a one-page weekly programme scorecard: movement since last week, which owner is behind, which team has not adopted.
-- Name the adoption gaps (teams, customers, features) and suggest the intervention and the person to ask.
-- Hold the CEO's own commitments to the programme (the CEO leading it visibly is a stated expectation of the sponsor framework) and prompt when the CEO is behind on them.
-- Maintain a library of wins and proof points with numbers, ready for the board, customers and the team.
+- Produce a one-page weekly readout: AI feature adoption by segment and for the top accounts (Pendo), accounts newly adopting or stalling, AI-influenced bookings (HubSpot), and health movement for adopters against non-adopters (ChurnZero). Until Pendo and ChurnZero are connected, it runs on HubSpot and Zendesk only and says so at the top.
+- Name the segments and accounts where adoption is stalling, who owns them (product, customer success, sales), and a question the CEO could put to that owner.
+- Hold the CEO's own commitments to the effort (customer calls, advocacy, proof points promised) and prompt when they are behind.
+- Keep a library of customer proof points with numbers, ready for the board, sales and customers.
+- Feed adoption into the watchlist in 5F, so a high-value account that is not adopting shows up as both a risk and an opportunity.
 
-Reads: Pendo, Zendesk, HubSpot, ChurnZero, Confluence, Granola.
-Produces: weekly AI scorecard, adoption gap list, proof-point library.
-Judged by: scorecard issued on time with sourced numbers, gaps flagged before the monthly review rather than at it.
+Does not: set adoption targets, run adoption campaigns, instruct customer success or product, or score the teams. Those stay with the named executives.
+
+Reads: Pendo, ChurnZero, HubSpot, Zendesk, Granola, Confluence.
+Produces: weekly adoption readout, stalled-account list, proof-point library.
+Judged by: readout on time with sourced numbers, stalled accounts flagged before the monthly review rather than at it.
+
+Parked: the internal AI operations scorecard (R&D efficiency, support automation, tooling penetration, EBITDA path) was in v0.1. It can come back as a separate domain if you want the agent to cover it.
 
 ### 5F. Customer health and revenue signal
 
@@ -173,13 +169,23 @@ Does:
 
 Judged by: usable first time, sources checkable.
 
-### 5J. People and organisation signals (restricted)
+### 5J. Relationship and 1:1 prep (people signals, restricted, off at launch)
 
-Does, only when explicitly switched on by the CEO:
-- Prepare 1:1 briefs for direct reports: open commitments, recent themes, anything from the transcripts the CEO said they would follow up.
-- Flag patterns in the CEO's own meeting behaviour (talk time, meetings run over, topics repeatedly deferred).
+People signals are anything the agent learns about individual colleagues from meetings, messages and calendars. They fall into two groups, and the line between them matters.
 
-Does not: score, rank or form views of named individuals' performance or sentiment. Humans do that. This domain is off at launch.
+Relationship context (allowed once switched on):
+- A brief before each 1:1 with a direct report: open commitments both ways, themes from recent meetings, anything the CEO said they would follow up, upcoming leave or deadlines.
+- A reminder when the CEO has not spoken to a direct report or key leader for an unusually long time.
+- The CEO's own patterns, shown only to the CEO: meetings that overrun, topics deferred three times, share of time spent with each function.
+
+Assessment (never):
+- Scoring, ranking or labelling named individuals on performance, attitude, sentiment or flight risk.
+- Anything that feeds a pay, promotion, performance or exit conversation.
+- Inferring how someone feels from tone or word choice in a transcript.
+
+Reads: Granola, calendar, email.
+Produces: 1:1 briefs, a monthly "who have I not spoken to" list.
+Judged by: the CEO finds the briefs accurate and useful, and no colleague has a reason to feel monitored. The ExCo is told the agent exists and what it does before this domain is switched on.
 
 ## 6. Cadence
 
@@ -191,7 +197,7 @@ Times are Europe/Dublin. Scheduled runs may fire up to nine minutes late (platfo
 | Daily, late afternoon (suggest 17:30) | End-of-day close, commitments update |
 | Continuous, hourly in working hours | Inbox triage, meeting transcript intake as meetings end |
 | Weekly, Monday early | Week ahead: priorities, calendar load, board and sponsor dates |
-| Weekly, Friday | Week behind: commitments register, AI scorecard, customer watchlist |
+| Weekly, Friday | Week behind: commitments register, customer AI adoption readout, customer watchlist |
 | Weekly, before ExCo | ExCo agenda proposal and pre-reads |
 | Monthly | Monthly review pack, scorecard trend, threshold tuning for customer alerts |
 | Quarterly | Quarterly planning pack, board cycle build starts 4 weeks out |
@@ -239,13 +245,14 @@ Design proposal, to be validated against the live platform before build.
 - Connectors are declared as MCP servers on the agent. The platform uses remote servers over Streamable HTTP with OAuth credentials held in a vault and attached at session creation. Anthropic refreshes the tokens. A connector with no remote MCP endpoint cannot be used directly.
 - Write-capable MCP toolsets stay on "always ask" so each write pauses for approval. The agent toolset itself can use the server-side "auto" evaluation, but I would not use "auto" on any connector that touches customers or the sponsor.
 - Per-tool allowlists on each connector: start read-only, add drafting tools one at a time.
+- Email and calendar come through the Microsoft 365 connector. Still to confirm: that it exposes a remote MCP endpoint the vault can authenticate to, and what permissions the sign-in grants (read only, or send as well), since draft-only has to be enforced by the connector scopes as well as by the agent's instructions.
 
 **Memory.** Memory stores mounted into each session:
 - Commitments register and decision log (read and write)
 - CEO preferences, voice notes and standing rules (read only for most runs)
 - Stakeholder notes: roles, history, what matters to each person (read and write)
 - Watchlist and thresholds (read and write)
-- Programme scorecard history (read and write)
+- Customer AI adoption history (read and write)
 
 Memory is small text files, up to eight stores per session, with immutable versions for audit and rollback. Nothing secret goes in.
 
@@ -277,20 +284,20 @@ A baseline for the first row has to be measured in week 0, so the target means s
 
 1. **Weeks 0 to 1.** Baseline CEO time. Connect read-only sources that already exist (Granola, HubSpot, Confluence, Slack). Morning brief and end-of-day close only. Everything is Observe.
 2. **Weeks 2 to 3.** Add email and calendar. Add drafting. Commitments register goes live.
-3. **Weeks 4 to 5.** Add Pendo, Zendesk and ChurnZero. Customer watchlist and AI scorecard start. Alerts go to the CEO only.
+3. **Weeks 4 to 5.** Add Pendo, Zendesk and ChurnZero. Customer watchlist and AI adoption readout start. Alerts go to the CEO only.
 4. **Weeks 6 to 8.** Board and sponsor domain. First promotion decisions on autonomy. Measure against section 10.
 
 ## 12. Open questions for the CEO
 
-These change the spec and I would rather settle them before build.
+Settled so far: email and calendar are Microsoft 365. Pendo and ChurnZero will be set up. The agent's AI focus is customer adoption through the products, with line of sight only (5E). Draft-only stays the starting position and the first promotion is decided as we go.
 
-1. **Connectors.** In this session I can see Granola, HubSpot, Atlassian (Confluence and Jira) and Slack as working connectors. Pendo is installed but needs authorising. I could not see Zendesk, ChurnZero, email or calendar connectors at all. Managed Agents needs a remote MCP endpoint for each. Which of these do you already have set up, and for ChurnZero and Zendesk, does an MCP endpoint exist or do we need to build a small one?
-2. **AI Imperative scorecard.** Are the six dimensions in 5E the right ones, and do you have the target values the sponsor expects? Without targets the agent can report movement but not whether it is behind.
-3. **Voice and sign-off.** Is draft-only the right starting position for email and Slack, and what is the first thing you would promote to act-with-approval?
-4. **Customer watchlist.** Who owns it today, and what makes an account "yours"? Revenue threshold, strategic list, or both?
-5. **Direct reports.** Is 5J (people signals) off for good, or on later, and with whose agreement? I would want the ExCo to know the agent exists and what it does.
-6. **Sponsor rules.** Does the fund have formats or deadlines for board and monthly reporting that the agent must follow? If so, I will add them to 5G.
-7. **Data protection.** Who signs off the data flows for the personal data that will pass through the agent, and is that before week 2?
+1. **Connectors.** I can see Granola, HubSpot, Atlassian (Confluence and Jira) and Slack working in this session, and Pendo needs authorising. Still unconfirmed: the Microsoft 365 connector's permissions and whether it has a remote MCP endpoint, whether Zendesk has one, and whether ChurnZero has one or needs a small bridge.
+2. **Who owns customer AI adoption today?** The readout in 5E needs a named owner for each stalled segment. Is that the CPO, the CRO, customer success, or split?
+3. **Customer watchlist.** Who owns it today, and what makes an account "yours"? Revenue threshold, strategic list, or both?
+4. **People signals (5J).** Relationship context on, assessment never, as written above. Is that the right line, and when would you tell the ExCo?
+5. **Sponsor rules.** Does the fund have formats or deadlines for board and monthly reporting that the agent must follow? If so, they go into 5G.
+6. **Data protection.** Who signs off the data flows for personal data passing through the agent, and is that before week 2?
+7. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
 8. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
 
 ## Sources
