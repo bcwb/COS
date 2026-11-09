@@ -1,8 +1,9 @@
 # Chief of staff agent - job specification
 
-Version 0.6 (draft for review) - 9 November 2026
+Version 0.7 (draft for review) - 9 November 2026
 Owner: Ben Bishop, CEO, Bright Software Group
 Status: research complete, design decisions open (section 12)
+Companion: [Design specification](../design/chief-of-staff-agent-design-spec.md)
 
 This is the job spec for an AI chief of staff that works with the CEO every day, built on Claude Managed Agents. It is written the way you would write one for a human hire: mission, scope, responsibilities, authority, how success is judged. Section 9 then maps the role onto the platform.
 
@@ -208,7 +209,7 @@ Reads (the vault is read-only to the agent):
 
 Writes (only to its own folder, `_agent/`):
 - The morning brief, end-of-day close, weekly readouts, commitments register and draft decision-log entries, as markdown notes using the vault's own conventions (links, tags, dates) so they sit in the graph.
-- The CEO decides what moves out of `_agent/` into the vault proper. Corrections the CEO makes inside `_agent/` are treated as authoritative at the next run.
+- The CEO decides what moves out of `_agent/` into the vault proper. In version 1 the flow is one way, from agent to vault. The CEO corrects the agent by telling it in a session, and the agent updates its own records. Editing `_agent/` files and having the agent read the edits back is a later option (design specification, D7).
 
 Rules:
 - Vault notes are tier 1 confidentiality (section 8). They prepare the CEO. They are never quoted in a draft for anyone else.
