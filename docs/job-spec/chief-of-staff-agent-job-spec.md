@@ -1,6 +1,6 @@
 # Chief of staff agent - job specification
 
-Version 0.4 (draft for review) - 9 November 2026
+Version 0.5 (draft for review) - 9 November 2026
 Owner: Ben Bishop, CEO, Bright Software Group
 Status: research complete, design decisions open (section 12)
 
@@ -302,18 +302,16 @@ A baseline for the first row has to be measured in week 0, so the target means s
 Settled so far:
 - Email and calendar are Microsoft 365. Pendo and ChurnZero will be set up.
 - The agent's AI focus is customer adoption through the products, with line of sight only (5E). Rick Norgate owns product and in-product adoption. Andrew Brown owns the early adopter programme, messaging and customer engagement, and takes product adjustments back to Rick.
-- The watchlist is the CEO's own customers by three routes (revenue, strategic intent, direct complaint involvement). The agent finds them from email domain, seniority, frequency and tone. No fixed revenue threshold and no strategic list needed for now.
+- The watchlist is the CEO's own customers by three routes (revenue, strategic intent, direct complaint involvement). The agent finds them from email domain, seniority, frequency and tone. Candidates are added provisionally and confirmed in the weekly review. Complaint accounts come off after 30 days resolved and stable, with the CEO's approval.
 - Draft-only is the starting position. The first promotion is decided as we go.
+- People signals (5J) stay off at launch and are revisited around week 6. Nothing to decide now.
 
 Still open:
 1. **Connectors.** Granola, HubSpot, Atlassian (Confluence and Jira) and Slack work in the build session, and Pendo needs authorising. Unconfirmed: the Microsoft 365 connector's permissions and whether it has a remote MCP endpoint, whether Zendesk has one, and whether ChurnZero has one or needs a small bridge.
-2. **Complaint accounts leaving the watchlist.** The spec now says resolved, no new escalation and 30 days. Is 30 about right, or shorter?
-3. **Provisional adds.** The agent adds a candidate with an "unconfirmed" flag and asks you in the weekly review, rather than waiting for approval first. Is that the right balance?
-4. **People signals (5J).** Relationship context on, assessment never. Is that the right line, and when would you tell the ExCo?
-5. **Sponsor rules.** Does the fund have formats or deadlines for board and monthly reporting that the agent must follow? If so, they go into 5G.
-6. **Data protection.** Who signs off the data flows for personal data passing through the agent (including customer contacts' emails and tone), and is that before week 2?
-7. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
-8. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
+2. **Hg reporting requirements.** Does Hg ask for board packs or monthly reporting in a set format or by set deadlines? If so, they go into 5G. If not known, the agent starts with a generic board pack and the finance lead can confirm the format later.
+3. **Data protection.** Who signs off the data flows for personal data passing through the agent (including customer contacts' emails and tone), and is that before week 2?
+4. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
+5. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
 
 ## Sources
 
