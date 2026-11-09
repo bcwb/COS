@@ -1,6 +1,6 @@
 # Chief of staff agent - job specification
 
-Version 0.5 (draft for review) - 9 November 2026
+Version 0.6 (draft for review) - 9 November 2026
 Owner: Ben Bishop, CEO, Bright Software Group
 Status: research complete, design decisions open (section 12)
 
@@ -45,7 +45,7 @@ What the agent is not:
 
 ## 4. Operating principles
 
-1. **Draft, never send.** Anything that leaves the CEO's name (email, Slack, calendar response, HubSpot or Confluence change) is a draft until approved. This is the starting position. Autonomy is earned in steps (section 7).
+1. **Never act.** Version 1 reads, prepares and drafts. The CEO sends, files, accepts, declines and changes everything. See section 7.
 2. **Show the working.** Every claim in a brief carries its source (meeting, ticket, record, date) so it can be checked in seconds.
 3. **Say what is unknown.** If a system is unavailable or a number is stale, the brief says so plainly instead of filling the gap.
 4. **Prefer the decision to the data.** A brief ends with what needs deciding or doing, not a summary of everything seen.
@@ -61,10 +61,10 @@ Each domain lists what the agent does, which systems it reads, what it produces,
 
 Does:
 - Triage the inbox into: needs the CEO personally, needs a reply the agent can draft, can be delegated (with a suggested owner), and can wait. Surfaces the first group only.
-- Draft replies in the CEO's voice for approval.
+- Draft replies in the CEO's voice, shown in the brief for the CEO to send.
 - Flag calendar conflicts, back-to-back overload, missing agendas, and meetings that duplicate each other.
-- Check every external meeting for a clear purpose, outcomes, why-you and agenda (the Bright POWA standard) and prompt the organiser if one is missing.
-- Protect named focus blocks. Proposes moves, never makes them silently.
+- Check every external meeting for a clear purpose, outcomes, why-you and agenda (the Bright POWA standard) and draft a note for the CEO to send to the organiser if one is missing.
+- Protect named focus blocks. Proposes moves for the CEO to make.
 - Prepare a one-page brief before every meeting of 30 minutes or more (section 5B).
 
 Reads: email, calendar, Granola history, HubSpot, Slack.
@@ -87,8 +87,8 @@ Judged by: the CEO opens it and acts on it (tracked), number of "I didn't know t
 Does:
 - Read every Granola transcript and extract: decisions, actions (owner, due date), commitments made by the CEO, commitments made to the CEO, promises made to customers, and risks mentioned in passing.
 - Maintain a single **commitments register** (memory store) with status.
-- Chase overdue items. First chaser is a draft for the CEO to approve. After the first month, routine chasers to direct reports can be pre-approved.
-- Keep a **decision log**: what was decided, by whom, why, what was rejected. Written to Confluence on approval.
+- Chase overdue items by drafting the chaser for the CEO to send. The agent sends nothing itself.
+- Keep a **decision log**: what was decided, by whom, why, what was rejected. Drafted for Confluence and the vault, and published by the CEO or the team.
 - Surface drift: the same topic discussed in three meetings with no decision.
 
 Reads: Granola, Slack, email, Confluence.
@@ -157,7 +157,7 @@ Does:
 - Keep a running **board actions** tracker and report status before each meeting.
 - Keep the KPI pack current from source systems with a visible "as at" date on every number.
 - Prepare the CEO for investor and operating partner conversations: likely questions, the numbers behind the answers, what was promised last time.
-- Manage the information flow to the fund: nothing reaches the sponsor that the CEO has not seen.
+- Track the information flow to the fund (the agent sends nothing), so nothing goes to the sponsor that the CEO has not seen.
 
 Reads: Confluence, HubSpot, Granola, email, finance sources as and when connected.
 Produces: board calendar and pack tracker, KPI pack, actions tracker, Q&A prep.
@@ -166,7 +166,7 @@ Judged by: pack complete 5 working days before the meeting, zero numbers the CEO
 ### 5H. Communications drafting
 
 Does:
-- Draft emails, Slack messages, all-hands notes, customer notes and 1:1 follow-ups in the CEO's voice, for approval.
+- Draft emails, Slack messages, all-hands notes, customer notes and 1:1 follow-ups in the CEO's voice, for the CEO to send.
 - Never send. Never post. Drafts are saved or displayed, nothing more.
 
 Judged by: edit distance between draft and sent version, which should fall over time.
@@ -197,6 +197,34 @@ Reads: Granola, calendar, email.
 Produces: 1:1 briefs, a monthly "who have I not spoken to" list.
 Judged by: the CEO finds the briefs accurate and useful, and no colleague has a reason to feel monitored. The ExCo is told the agent exists and what it does before this domain is switched on.
 
+### 5K. Second brain (Obsidian)
+
+The CEO's Obsidian vault is the second brain: private notes on people, customers, projects, decisions, principles and reading. The agent uses it in two directions.
+
+Reads (the vault is read-only to the agent):
+- Pulls context into briefs: what the CEO has already written about a customer, a person, a decision or an initiative before a meeting.
+- Answers recall questions: "what did I decide about X, and why", "what have I said about the early adopter programme".
+- Spots links and gaps: the same idea in three notes, a decision with no follow-up, a customer in the notes who is not on the watchlist.
+
+Writes (only to its own folder, `_agent/`):
+- The morning brief, end-of-day close, weekly readouts, commitments register and draft decision-log entries, as markdown notes using the vault's own conventions (links, tags, dates) so they sit in the graph.
+- The CEO decides what moves out of `_agent/` into the vault proper. Corrections the CEO makes inside `_agent/` are treated as authoritative at the next run.
+
+Rules:
+- Vault notes are tier 1 confidentiality (section 8). They prepare the CEO. They are never quoted in a draft for anyone else.
+- Only folders the CEO lists are in scope. Anything on people, pay, health or personal life stays out of what the agent can see.
+- One home for each kind of record. Obsidian is the CEO's private thinking. Confluence is the shared company record. Granola is the raw meeting record. Memory stores are the agent's working state.
+
+How it connects. None of this is verified yet, and it gets settled in the build:
+1. **Vault in a private GitHub repo (leading option).** The platform can mount a repository into each session, and git access goes through a proxy so the token never enters the sandbox. A read-only token should mean the agent cannot write to the vault at all. The whole repo is mounted, so anything the agent must not see has to stay out of that repo. I have not checked whether a partial mount is possible. Outputs go to a separate repo or folder that the CEO syncs into the vault.
+2. **Vault in OneDrive, read through the Microsoft 365 connector,** if the connector covers files.
+3. **A community MCP server over a tunnel to the CEO's machine.** The machine has to be on, the code is third-party and unvetted, and many of these servers allow writes. Not for launch.
+4. **A self-hosted sandbox on the CEO's machine.** The machine has to be on at every scheduled run.
+
+Reads: the Obsidian vault.
+Produces: notes in `_agent/`, vault context in every brief.
+Judged by: briefs that cite the right notes, recall questions answered from the right note, and no vault content in anything written for someone else.
+
 ## 6. Cadence
 
 Times are Europe/Dublin. Scheduled runs may fire up to nine minutes late (platform jitter), so no downstream deadline should depend on the exact minute. Nothing is scheduled in the 01:00 to 03:00 window because of the clock change.
@@ -215,23 +243,25 @@ Times are Europe/Dublin. Scheduled runs may fire up to nine minutes late (platfo
 
 ## 7. Authority
 
-The agent moves through three levels. Every capability starts at the lowest level that makes it useful. The CEO moves a capability up, in writing, after a review period.
+Version 1 never acts. It reads, prepares and drafts. The CEO sends, files, accepts, declines and changes everything.
 
-| Level | Meaning | Examples at launch |
+The agent has two levels, and no connector is given write permission.
+
+| Level | Meaning | Examples |
 |---|---|---|
-| Observe | Reads and reports. | All source systems, all briefs. |
-| Draft | Prepares an action for approval. Nothing leaves the building. | Emails, Slack messages, calendar proposals, Confluence pages, HubSpot task suggestions. |
-| Act with approval | Executes once the CEO has said yes to that specific action. | Sending an approved email, accepting a calendar invite, publishing a Confluence page. |
+| Observe | Reads source systems and reports. | Email, calendar, Granola, HubSpot, Confluence, Slack, Zendesk, Pendo, ChurnZero, the Obsidian vault. |
+| Prepare | Produces a draft or proposal in its own workspace for the CEO to use. | Reply drafts, calendar change proposals, chasers, board pack sections, decision-log entries, notes in the `_agent/` folder. |
 
-Not permitted at any level without a separate written decision:
+The agent's own workspace is its memory stores, its session outputs and the `_agent/` folder described in 5K. Writing there is not acting, because it changes nothing the CEO or anyone else relies on until the CEO chooses to use it. Anything outside that workspace is acting and is not permitted:
 
-- Sending anything external on its own initiative.
-- Changing or deleting records in HubSpot, ChurnZero, Zendesk or Pendo.
-- Declining or moving meetings with people outside the company.
-- Any message that commits money, price, a date or a roadmap item to a customer.
-- Anything involving individual employee performance, pay or exit.
+- Sending, replying to, forwarding or deleting email.
+- Accepting, declining, moving or creating calendar events.
+- Posting or reacting in Slack.
+- Creating or changing records in HubSpot, ChurnZero, Zendesk, Pendo, Confluence or Jira.
+- Writing to the Obsidian vault outside `_agent/`.
+- Contacting anyone, inside or outside the company.
 
-Candidates to promote after a month of clean running: routine chasers to direct reports, accepting internal invites that meet stated rules, writing the end-of-day log to Confluence.
+Whether a later version acts is a decision for after week 8, made capability by capability from what the first eight weeks show. Until then the limit is enforced twice: connectors get read-only permissions, and the agent's instructions say the same.
 
 ## 8. Guardrails
 
@@ -240,7 +270,7 @@ Candidates to promote after a month of clean running: routine chasers to direct 
 3. **Customer and personal data.** Irish and EU data. Minimum necessary, no copying of customer personal data into memory, no use outside the task that needed it. A data protection review of this agent's data flows happens before launch.
 4. **No credentials in memory.** Secrets live in the platform credential vault only.
 5. **Prompt injection.** Email, tickets and transcripts are untrusted content. Instructions found inside them are information for the CEO, not commands for the agent. Anything unusual (a message that tells the agent to forward, delete or disclose something) is flagged to the CEO.
-6. **Approval on tool calls.** Every write-capable tool call needs explicit confirmation. Read-only tools can run without it.
+6. **Read-only connectors.** No connector is granted write permission, so the rule does not rest on the agent following instructions. The only writes are to the agent's own workspace (section 7).
 7. **Human sign-off on facts.** Numbers going into any board, sponsor or customer document carry their source and an "as at" date, and the CEO or the number's owner confirms them.
 8. **Audit trail.** Every session is retained. The agent logs what it read, what it proposed and what was approved. The memory store keeps versions so any change can be traced and rolled back.
 9. **Spend cap.** Each scheduled run has a hard cost ceiling. A run that hits it stops and says so.
@@ -253,9 +283,9 @@ Design proposal, to be validated against the live platform before build.
 
 **Tools and connectors.**
 - Connectors are declared as MCP servers on the agent. The platform uses remote servers over Streamable HTTP with OAuth credentials held in a vault and attached at session creation. Anthropic refreshes the tokens. A connector with no remote MCP endpoint cannot be used directly.
-- Write-capable MCP toolsets stay on "always ask" so each write pauses for approval. The agent toolset itself can use the server-side "auto" evaluation, but I would not use "auto" on any connector that touches customers or the sponsor.
-- Per-tool allowlists on each connector: start read-only, add drafting tools one at a time.
-- Email and calendar come through the Microsoft 365 connector. Still to confirm: that it exposes a remote MCP endpoint the vault can authenticate to, and what permissions the sign-in grants (read only, or send as well), since draft-only has to be enforced by the connector scopes as well as by the agent's instructions.
+- Every connector is signed in with read-only permissions and a per-tool allowlist of read tools. No write tool is exposed to the agent at all.
+- The Obsidian vault is covered in 5K.
+- Email and calendar come through the Microsoft 365 connector. Still to confirm: that it exposes a remote MCP endpoint the vault can authenticate to, and that it can be signed in read-only. Never-acts has to be enforced by the sign-in permissions as well as by the agent's instructions.
 
 **Memory.** Memory stores mounted into each session:
 - Commitments register and decision log (read and write)
@@ -292,10 +322,10 @@ A baseline for the first row has to be measured in week 0, so the target means s
 
 ## 11. Rollout
 
-1. **Weeks 0 to 1.** Baseline CEO time. Connect read-only sources that already exist (Granola, HubSpot, Confluence, Slack). Morning brief and end-of-day close only. Everything is Observe.
-2. **Weeks 2 to 3.** Add email and calendar. Add drafting. Commitments register goes live.
+1. **Weeks 0 to 1.** Baseline CEO time. Connect read-only sources that already exist (Granola, HubSpot, Confluence, Slack). Morning brief and end-of-day close only. Everything is read-only.
+2. **Weeks 2 to 3.** Add email and calendar, read-only. Add the Obsidian vault, read-only, with the `_agent/` folder for outputs. Add drafting. Commitments register goes live.
 3. **Weeks 4 to 5.** Add Pendo, Zendesk and ChurnZero. Customer watchlist and AI adoption readout start. Alerts go to the CEO only.
-4. **Weeks 6 to 8.** Board and sponsor domain. First promotion decisions on autonomy. Measure against section 10.
+4. **Weeks 6 to 8.** Board and sponsor domain. Revisit people signals (5J) and decide whether a later version should act. Measure against section 10.
 
 ## 12. Open questions for the CEO
 
@@ -303,15 +333,17 @@ Settled so far:
 - Email and calendar are Microsoft 365. Pendo and ChurnZero will be set up.
 - The agent's AI focus is customer adoption through the products, with line of sight only (5E). Rick Norgate owns product and in-product adoption. Andrew Brown owns the early adopter programme, messaging and customer engagement, and takes product adjustments back to Rick.
 - The watchlist is the CEO's own customers by three routes (revenue, strategic intent, direct complaint involvement). The agent finds them from email domain, seniority, frequency and tone. Candidates are added provisionally and confirmed in the weekly review. Complaint accounts come off after 30 days resolved and stable, with the CEO's approval.
-- Draft-only is the starting position. The first promotion is decided as we go.
+- Version 1 never acts. It reads, prepares and drafts. The CEO sends, files and changes everything. Whether a later version acts is decided after week 8.
 - People signals (5J) stay off at launch and are revisited around week 6. Nothing to decide now.
 
 Still open:
 1. **Connectors.** Granola, HubSpot, Atlassian (Confluence and Jira) and Slack work in the build session, and Pendo needs authorising. Unconfirmed: the Microsoft 365 connector's permissions and whether it has a remote MCP endpoint, whether Zendesk has one, and whether ChurnZero has one or needs a small bridge.
 2. **Hg reporting requirements.** Does Hg ask for board packs or monthly reporting in a set format or by set deadlines? If so, they go into 5G. If not known, the agent starts with a generic board pack and the finance lead can confirm the format later.
 3. **Data protection.** Who signs off the data flows for personal data passing through the agent (including customer contacts' emails and tone), and is that before week 2?
-4. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
-5. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
+4. **Where the vault lives today.** Local only, iCloud, OneDrive, or Obsidian Sync? Roughly how big is it, and which folders should the agent see? The answer picks the connection option in 5K.
+5. **The agent's own workspace.** The spec treats its memory stores and the `_agent/` folder as not acting. Are you comfortable with that line?
+6. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
+7. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
 
 ## Sources
 
