@@ -1,6 +1,6 @@
 # Chief of staff agent - job specification
 
-Version 0.3 (draft for review) - 9 November 2026
+Version 0.4 (draft for review) - 9 November 2026
 Owner: Ben Bishop, CEO, Bright Software Group
 Status: research complete, design decisions open (section 12)
 
@@ -113,7 +113,11 @@ Driving AI adoption in customers is owned by Rick Norgate (CTPO) and Andrew Brow
 
 Does:
 - Produce a one-page weekly readout: AI feature adoption by segment and for the top accounts (Pendo), accounts newly adopting or stalling, AI-influenced bookings (HubSpot), and health movement for adopters against non-adopters (ChurnZero). Until Pendo and ChurnZero are connected, it runs on HubSpot and Zendesk only and says so at the top.
-- Name the segments and accounts where adoption is stalling, which of Rick or Andrew owns them, and a question the CEO could put to that owner. How the two divide the ground (by product, by segment, by account) is still to be confirmed and goes into the agent's stakeholder notes once it is.
+- Name the segments and accounts where adoption is stalling, say which owner it belongs to, and suggest a question the CEO could put to them. Routing follows the two roles:
+  - **Rick Norgate (CTPO)** ensures products get built, meet customer needs and lean into adoption in the product itself. A stall that looks like a product gap, a missing capability or weak in-product prompting goes to Rick.
+  - **Andrew Brown (Strategy and M&A lead)** runs the early adopter programme, the adoption messaging and the conversations with customers about the value proposition, and takes product adjustments back to Rick. A stall that looks like an unclear message, a customer who has not engaged, or an early adopter who has gone quiet goes to Andrew.
+  - When the cause is not clear, the agent says so and names both.
+- Track the loop from Andrew to Rick: each product adjustment a customer asks for through the early adopter programme becomes an item with a source customer, a date raised, an owner and a status, so the CEO can see what has been asked, what Rick has taken on, and what has been closed.
 - Hold the CEO's own commitments to the effort (customer calls, advocacy, proof points promised) and prompt when they are behind.
 - Keep a library of customer proof points with numbers, ready for the board, sales and customers.
 - Feed adoption into the watchlist in 5F, so a high-value account that is not adopting shows up as both a risk and an opportunity.
@@ -130,10 +134,12 @@ Parked: the internal AI operations scorecard (R&D efficiency, support automation
 
 Does:
 - Maintain the CEO's **watchlist**: the customers that are the CEO's own. An account is on it by one of three routes:
-  1. **Revenue.** Annual recurring revenue at or above a threshold the CEO sets (threshold to be confirmed).
-  2. **Strategic intent.** Accounts the CEO has nominated because of what they mean to the company's direction, whatever their size today.
-  3. **Direct involvement in a complaint.** Any account where the CEO has personally leaned in on a complaint. The agent spots these from the CEO's email, Granola meetings and Zendesk escalations and proposes the addition. The CEO confirms. The agent never adds an account silently.
-- Record the route and the date against each account, and review the list monthly: proposed removals for complaint accounts once resolved and stable, and for revenue accounts that have dropped below the threshold, for the CEO to approve.
+  1. **Revenue.** Large accounts. There is no fixed threshold. The agent judges size from HubSpot and from how the account appears in the CEO's day.
+  2. **Strategic intent.** Accounts that matter to the company's direction, whatever their size today.
+  3. **Direct involvement in a complaint.** Any account where the CEO has personally leaned in on a complaint.
+- Spot candidates the way a chief of staff would, from the CEO's own communications: the sender's email domain matching a customer in HubSpot, how senior the contact is, how often they write, whether the CEO is copied or replies personally, and the tone of the exchange (a complaint or frustration in the customer's message, or the CEO's reply turning more urgent, apologetic or personal). Granola meetings and Zendesk escalations that mention the CEO count as well.
+- Add a candidate provisionally, mark it unconfirmed with the signals that triggered it, and ask the CEO to confirm or remove it in the next weekly review. Nothing stays unconfirmed for more than two weeks.
+- Record the route and date against each account. Review monthly. A complaint account is proposed for removal once the issue is resolved, there is no new escalation and 30 days have passed. The CEO approves every removal.
 - Combine ChurnZero health, Zendesk escalations and sentiment, Pendo usage trend and HubSpot renewal and deal stage into one view per watchlist account.
 - Raise an early warning when signals converge: health falling, usage dropping, tickets escalating, renewal inside 120 days.
 - Suggest an executive sponsor action (a call, a note, an introduction) and draft it.
@@ -295,21 +301,19 @@ A baseline for the first row has to be measured in week 0, so the target means s
 
 Settled so far:
 - Email and calendar are Microsoft 365. Pendo and ChurnZero will be set up.
-- The agent's AI focus is customer adoption through the products, with line of sight only (5E). Owners are Rick Norgate and Andrew Brown.
-- The watchlist is the CEO's own customers by three routes: revenue, strategic intent, and direct involvement in a complaint (5F).
+- The agent's AI focus is customer adoption through the products, with line of sight only (5E). Rick Norgate owns product and in-product adoption. Andrew Brown owns the early adopter programme, messaging and customer engagement, and takes product adjustments back to Rick.
+- The watchlist is the CEO's own customers by three routes (revenue, strategic intent, direct complaint involvement). The agent finds them from email domain, seniority, frequency and tone. No fixed revenue threshold and no strategic list needed for now.
 - Draft-only is the starting position. The first promotion is decided as we go.
 
 Still open:
 1. **Connectors.** Granola, HubSpot, Atlassian (Confluence and Jira) and Slack work in the build session, and Pendo needs authorising. Unconfirmed: the Microsoft 365 connector's permissions and whether it has a remote MCP endpoint, whether Zendesk has one, and whether ChurnZero has one or needs a small bridge.
-2. **Revenue threshold.** What ARR puts an account on the watchlist by default?
-3. **Rick and Andrew.** How do they divide customer AI adoption (by product, segment or account)? The readout routes each stalled account to one of them.
-4. **Strategic list.** Do you have one today, and where does it live (HubSpot property, Confluence page, your head)?
-5. **Leaving the watchlist.** My proposal is that a complaint account comes off once resolved and stable for 90 days, with your approval. Does that match how you think about it?
-6. **People signals (5J).** Relationship context on, assessment never. Is that the right line, and when would you tell the ExCo?
-7. **Sponsor rules.** Does the fund have formats or deadlines for board and monthly reporting that the agent must follow? If so, they go into 5G.
-8. **Data protection.** Who signs off the data flows for personal data passing through the agent, and is that before week 2?
-9. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
-10. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
+2. **Complaint accounts leaving the watchlist.** The spec now says resolved, no new escalation and 30 days. Is 30 about right, or shorter?
+3. **Provisional adds.** The agent adds a candidate with an "unconfirmed" flag and asks you in the weekly review, rather than waiting for approval first. Is that the right balance?
+4. **People signals (5J).** Relationship context on, assessment never. Is that the right line, and when would you tell the ExCo?
+5. **Sponsor rules.** Does the fund have formats or deadlines for board and monthly reporting that the agent must follow? If so, they go into 5G.
+6. **Data protection.** Who signs off the data flows for personal data passing through the agent (including customer contacts' emails and tone), and is that before week 2?
+7. **Internal AI operations.** Do you want the parked scorecard back in scope, or handled elsewhere?
+8. **What is missing.** Which part of a good chief of staff's week is not in section 5 that you would want covered?
 
 ## Sources
 
